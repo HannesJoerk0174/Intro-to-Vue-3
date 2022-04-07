@@ -18,21 +18,21 @@
         <div class="product-container">
           <div class="product-image">
             <!--:src is shorthand for v-bind:src-->
-            <img :src="image" v-bind:class="{ 'out-of-stock-img': inventory == 0 }" >    
+            <img :src="image" v-bind:class="{ 'out-of-stock-img': inStock == 0 }" >    
           </div>
           <div class="product-info">
-            <h1>{{ product }}</h1>
+            <h1>{{ title }}</h1>
             <p>{{ description }}</p>
-            <p v-if="inventory > 10">In Stock</p>
-            <p v-else-if="inventory <=10 && inventory > 0">Almost out of Stock</p>
+            <p v-if="inStock > 10">In Stock</p>
+            <p v-else-if="inStock <=10 && inStock > 0">Almost out of Stock</p>
             <p v-else>Out of Stock</p>
             <ul>
               <li v-for="detail in details">{{ detail }}</li>
             </ul>
             <div 
-              v-for="variant in variants" 
+              v-for="(variant, index) in variants" 
               :key="variant.id" 
-              @mouseover="updateImage(variant.image)"
+              @mouseover="updateVariant(index)"
               class="color-circle"
               :style="{ backgroundColor: variant.color }">
               <!--backgroundColor da JS-Code, alternativ: style="{ 'background-color' = variant.color }"-->
@@ -44,8 +44,8 @@
             <!--@click is shorthand for v-on:click-->
             <button 
               class="button"
-              :class="{ 'disabledButton': inventory == 0 }"
-              :disabled="inventory == 0"
+              :class="{ 'disabledButton': inStock == 0 }"
+              :disabled="inStock == 0"
               @click="addToCart">
               Add to Cart
             </button>  
