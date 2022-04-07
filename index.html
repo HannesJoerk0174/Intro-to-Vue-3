@@ -18,7 +18,7 @@
         <div class="product-container">
           <div class="product-image">
             <!--:src is shorthand for v-bind:src-->
-            <img :src="image">    
+            <img :src="image" v-bind:class="{ 'out-of-stock-img': inventory == 0 }" >    
           </div>
           <div class="product-info">
             <h1>{{ product }}</h1>
@@ -43,7 +43,9 @@
             </div>
             <!--@click is shorthand for v-on:click-->
             <button 
-              class="button" 
+              class="button"
+              :class="{ 'disabledButton': inventory == 0 }"
+              :disabled="inventory == 0"
               @click="addToCart">
               Add to Cart
             </button>  
